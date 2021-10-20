@@ -30,7 +30,9 @@ public class MouseTwitchTimerTask extends TimerTask {
         int newY = currY + 1;
 
         this.robot.mouseMove(newX, newY);
-        this.robot.mouseMove(currX, currY);
+        System.out.println("Move to (" + newX + ", " + newY + ")");
 
+        this.robot.mouseMove(currX, currY);
+        System.out.println("Move to (" + currX + ", " + currY + ")");
     }
 }
