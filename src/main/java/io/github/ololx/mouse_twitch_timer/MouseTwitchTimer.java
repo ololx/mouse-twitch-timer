@@ -1,8 +1,8 @@
-package org.mouse.twitch.timer;
+package io.github.ololx.mouse_twitch_timer;
 
 import java.util.Timer;
 
-public class Main {
+public class MouseTwitchTimer {
 
     public static void main(String[] args) {
         long period = 5;
