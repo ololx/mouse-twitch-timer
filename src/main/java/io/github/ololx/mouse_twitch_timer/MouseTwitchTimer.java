@@ -5,7 +5,7 @@ import java.util.Timer;
 public class MouseTwitchTimer {
 
     public static void main(String[] args) {
-        long period = 5;
+        long period = 30000;
         if (args.length > 0) {
             period = Long.parseLong(args[0]);
         }

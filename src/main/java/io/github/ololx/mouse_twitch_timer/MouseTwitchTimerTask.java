@@ -2,6 +2,7 @@ package io.github.ololx.mouse_twitch_timer;
 
 import java.awt.*;
 import java.util.TimerTask;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
 
 /**
@@ -29,21 +30,37 @@ public class MouseTwitchTimerTask extends TimerTask {
     public void run() {
         int currX = (int) MouseInfo.getPointerInfo().getLocation().getX();
         int currY = (int) MouseInfo.getPointerInfo().getLocation().getY();
+        AtomicInteger newX = new AtomicInteger(currX);
+        AtomicInteger newY = new AtomicInteger(currY);
 
         IntStream.range(0, 4)
-                .map(twitchIndex -> twitchIndex % 2 == 0 ? + 200 : -200)
+                .map(twitchIndex -> twitchIndex % 2 == 0 ? + 5 : -5)
                 .forEach(twitchDelta -> {
-                    this.robot.mouseMove(currX + twitchDelta, currY + twitchDelta);
-                    System.out.println(
-                            String.format(
-                                    MESSAGE_FORMAT,
-                                    (currX + twitchDelta),
-                                    (currY + twitchDelta)
-                            )
-                    );
+                    IntStream.range(twitchDelta, 0)
+                            .forEach(newPos -> this.mouseMove(
+                                    newX.decrementAndGet(),
+                                    newY.decrementAndGet()
+                            ));
+                    IntStream.range(0, twitchDelta)
+                            .forEach(newPos -> this.mouseMove(
+                                    newX.incrementAndGet(),
+                                    newY.incrementAndGet()
+                            ));
+
+
                 });
 
-        this.robot.mouseMove(currX, currY);
-        System.out.println(String.format(MESSAGE_FORMAT, currX, currY));
+        this.mouseMove(currX, currY);
+    }
+
+    private void mouseMove(int x, int y) {
+        this.robot.mouseMove(x, y);
+        System.out.println(String.format(MESSAGE_FORMAT, x, y));
+
+        try {
+            Thread.sleep(50);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }
