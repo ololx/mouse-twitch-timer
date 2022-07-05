@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
@@ -22,7 +21,7 @@
     <licenses>
         <license>
             <name>MIT License</name>
-            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <url>https://www.opensource.org/licenses/mit-license.php</url>
             <comments/>
         </license>
     </licenses>
@@ -46,7 +45,7 @@
     <scm>
         <connection>scm:git:git://github.com/ololx/mouse-twitch-timer.git</connection>
         <developerConnection>scm:git:ssh://github.com/ololx/mouse-twitch-timer.git</developerConnection>
-        <url>http://github.com/ololx/mouse-twitch-timer</url>
+        <url>https://github.com/ololx/mouse-twitch-timer</url>
     </scm>
     <issueManagement>
         <system>GitHub Issues</system>
@@ -72,7 +71,7 @@
     <properties>
         <!--[project versions-->
         <revision>0.1.1</revision>
-        <changelist></changelist>
+        <changelist/>
         <sha1/>
         <!--project versions]-->
 
@@ -165,6 +164,7 @@
                 <executions>
                     <execution>
                         <id>enforce</id>
+                        <phase>validate</phase>
                         <goals>
                             <goal>enforce</goal>
                         </goals>
@@ -180,20 +180,13 @@
                                 <requireJavaVersion>
                                     <version>11, </version>
                                     <message>
-                                        Invalid Maven version. It should, at least, be 11
+                                        Invalid Java version. It should, at least, be 11
                                     </message>
                                 </requireJavaVersion>
                             </rules>
                         </configuration>
                     </execution>
                 </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-verifier-plugin</artifactId>
-                <version>${plugin.maven-verifier-plugin.version}</version>
-                <configuration>
-                    <failOnError>true</failOnError>
-                </configuration>
             </plugin>
             <!--checking requires]-->
 
