@@ -1,6 +1,7 @@
-package io.github.ololx.mouse_twitch_timer;
+package io.github.ololx.mousetwitchtimer;
 
 import java.awt.*;
+import java.awt.geom.Point2D;
 import java.util.TimerTask;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.IntStream;
@@ -33,34 +34,30 @@ public class MouseTwitchTimerTask extends TimerTask {
         AtomicInteger newX = new AtomicInteger(currX);
         AtomicInteger newY = new AtomicInteger(currY);
 
-        IntStream.range(0, 4)
-                .map(twitchIndex -> twitchIndex % 2 == 0 ? + 5 : -5)
-                .forEach(twitchDelta -> {
-                    IntStream.range(twitchDelta, 0)
-                            .forEach(newPos -> this.mouseMove(
-                                    newX.decrementAndGet(),
-                                    newY.decrementAndGet()
-                            ));
-                    IntStream.range(0, twitchDelta)
-                            .forEach(newPos -> this.mouseMove(
-                                    newX.incrementAndGet(),
-                                    newY.incrementAndGet()
-                            ));
+        for (int twitchIndex = 0; twitchIndex < 4; twitchIndex++) {
+            int twitchDelta = twitchIndex % 2 == 0 ? + 5 : -5;
+            int moveStep = -1;
 
+            while (++moveStep <= twitchDelta && this.checkIfInMovement(newX.get(), newY.get())) {
+                this.mouseMove(newX.incrementAndGet(), newY.incrementAndGet());
+            }
 
-                });
+            while (--moveStep >= 0 && this.checkIfInMovement(newX.get(), newY.get())) {
+                this.mouseMove(newX.decrementAndGet(), newY.decrementAndGet());
+            }
+        }
 
         this.mouseMove(currX, currY);
     }
 
     private void mouseMove(int x, int y) {
         this.robot.mouseMove(x, y);
-        System.out.println(String.format(MESSAGE_FORMAT, x, y));
+        this.robot.delay(50);
 
-        try {
-            Thread.sleep(50);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        System.out.printf((MESSAGE_FORMAT) + "%n", x, y);
+    }
+
+    private boolean checkIfInMovement(int x, int y) {
+        return MouseInfo.getPointerInfo().getLocation().distance(x, y) <= 1;
     }
 }

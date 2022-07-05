@@ -71,7 +71,7 @@
     <!--[properties-->
     <properties>
         <!--[project versions-->
-        <revision>0.1.0</revision>
+        <revision>0.1.1</revision>
         <changelist></changelist>
         <sha1/>
         <!--project versions]-->
@@ -80,7 +80,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.version>11</java.version>
         <addClasspath>true</addClasspath>
-        <mainClass>io.github.ololx.mouse_twitch_timer.MouseTwitchTimer</mainClass>
+        <mainClass>io.github.ololx.mousetwitchtimer.MouseTwitchTimer</mainClass>
         <!--project specific]-->
 
         <!--[plugins versions-->
